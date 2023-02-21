@@ -1,55 +1,34 @@
-#Problema Empaquetar una matriz,Trabajo de David Ordoñez
-
+#Prueba1 Ejercicio 4 Escribir la funcion B=f(A,v) donde v es vector de k elementos 
+#A una matriz cuadrada y B=(A-v(0)I)...(A-v(k-1)I)
 import numpy as np
+def f(Ai,v):
+    import numpy as np
+    k=len(v)
+    n=len(Ai)
+    print(n)
+    A=Ai.copy()   
 
-print(":::::Matriz original:::::\n")
-A=np.array([[1,4,5,0,0,0],
-[3,5,7,6,0,0],
-[0,1,4,1,8,0],
-[0,0,3,3,7,4],
-[0,0,0,2,8,1],
-[0,0,0,0,5,9]])
+    for i in range(0,n):
+        A[i][i]=Ai[i][i]-v[0]
+    
+    B=A.copy()
+   
+    for r in range(1,k):
+        for i in range(0,n):
+            A[i][i]=Ai[i][i]-v[r]
 
-print(A,"\n")
+        C=np.zeros([n,n])
+        
 
-print(":::::Matriz por bandas:::::")
-
-n=len(A)
-fila=np.zeros(n)
-columna=np.zeros(n)
-
-for i in range(0,n):
-    x=0
-    for j in range(0,n): 
-        if A[i][j]==0:
-            x=x+0
-        else:
-            x=x+1
-    fila[i]=x
-
-q=max(fila);
-
-for i in range(0,n):
-    x=0
-    for j in range(0,n): 
-        if A[j][i]==0:
-            x=x+0
-        else:
-            x=x+1
-    columna[i]=x
-
-p=max(columna);
-
-Q=min(columna);
-
-
-#Proceso para tener la matriz por bandas
-Ab=np.zeros((int(p),n))
-
-
-for j in range(0,n):
-    for i in range(0,int(p)):
-     if i+j-int(Q)>=0:
-        if i+j-int(Q)<n:
-            Ab[i][j]=A[i+j-int(Q)][j]
-print(Ab)
+        for i in range(0,n):
+            for j in range(0,n):
+                C[i][j]=C[i][j]+np.dot(B[i][:],A[:][j])
+        B=C
+    print('La primera columna es \n', B[:][1])   
+    return B[:][1]  
+#Ai=np.array([[2,3,4,-5], [1,0,3,0], [2,4,6,3], [5,3,0,-5]])
+#v=[4,5,1,-1,5]
+Ai=np.array([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]])
+print(Ai)
+v=np.array([1,2,3])
+f(Ai,v)
