@@ -25,3 +25,8 @@ Obj1=sp.linalg.splu(Smatriz1)
 #print(inspect.getmembers(Obj1))
 print("Matriz L de la factorizacion LU de Smatriz1: \n",Obj1.L)
 print("Formalto de la Matriz L de la factorizacion LU de Smatriz1: \n",type(Obj1.L))
+#Ejercicio 1: Elabore un experimento con una matriz de tamaño 10x10
+# con entradas en los enteros en el intervalo [0,3].
+#Transformar esta matriz al formato CSC 
+#Posteriormente investigue como usar la funcion svds para matrices esparciadas
+#y finalmente verfique que dicha factorizacion es Correcta. 
