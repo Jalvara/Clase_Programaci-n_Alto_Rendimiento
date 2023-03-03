@@ -33,9 +33,9 @@ def Producto1(A,v):
         print("--->",C)
         B=C.copy()
     return B[:,0]            
-A=np.array([[1,2,3,4,5],[4,5,6,7,8],[0,8,9,10,11],[0,0,13,14,15],[0,0,0,12,23]]);
-print(A)
-v=np.array([3,4,5])
-retorno=Producto1(A,v)
-print(np.matmul(np.matmul(A-v[0]*np.eye(5),A-v[1]*np.eye(5)),A-v[2]*np.eye(5)))
-print(retorno)
+A=np.array([[2,3,4,5],[1,2,3,6],[0,7,6,5],[0,0,23,1]])
+I=np.eye(4)
+print(np.matmul(A-I,A-2*I))
+l=np.array([1,2])
+B=Producto(A,l)
+print(B)
