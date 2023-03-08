@@ -35,13 +35,13 @@ axes[3].set_ylabel(" ")
 axes[3].set_title("Tipo Circular")
 plt.show()"""
 #Apartado de Dataframe
-Tabla1=pd.DataFrame([['F','Francisco Morazan'],['O','olancho'],['P','Paraiso']])
+"""Tabla1=pd.DataFrame([['F','Francisco Morazan'],['O','olancho'],['P','Paraiso']])
 print(Tabla1)
 print("indices de columna: ",list(Tabla1.columns))
 print("indices de fila: ",list(Tabla1.index))
 Tabla1.columns=['Letra_inicial','Departamento']
 Tabla1.index=['Centro','Derecha','Izquierda']
-print(Tabla1)
+print(Tabla1)"""
 #Segunda forma de generar una tabla de datos
 Matriz2=np.random.randint(1,10,size=(5,4))
 filas2=[chr(k) for k in np.random.randint(60,90,5)]
@@ -49,8 +49,44 @@ columnas2=[chr(k) for k in np.random.randint(60,90,4)]
 Tabla2=pd.DataFrame(Matriz2,index=filas2,columns=columnas2)
 print(Tabla2)
 #Accediento a las etiquetas de fila y columna
-print("Imprimiendo la columna de departamento")
+"""print("Imprimiendo la columna de departamento")
 print(Tabla1)
 print(Tabla1['Departamento'])
 print(Tabla1.Departamento)
-print(type(Tabla1.loc['Derecha']))
+print(type(Tabla1.loc['Derecha']))"""
+#Procesando una base de datos en formato csv
+Base1=pd.read_csv('DataAccesoElectricidad.csv',delimiter=',',header=4)
+print("Base de dato de acceso a la electricidad: ")
+print(Base1)
+print("Resumen de la Base de Datos: ")
+print(Base1.info())
+print("Imprimiendo los primeros 5 encabezados de la Base de datos: ")
+print(Base1.head(5))
+print(Base1.tail(5))
+#Ejercicio1: Crear una columna con igual a la columna '2020' pero con los elementos
+#de esta cadena como tipo string.
+Base1['2020str']=Base1['2020'].apply(lambda x: str(x))
+print(Base1.info())
+print(Base1.head(5))
+#Ejercicio2: Modificar la columna del nombre de indicador y cambiar las entradas
+#eliminando los espacios en blanco y sustituirlos por guiones bajos. 
+Base1['Indicator Name']=Base1['Indicator Name'].apply(lambda x: '_'.join(x.split(' '))) 
+print(Base1['Indicator Name'])
+#Imprimiendo los indices de la base de datos.
+print(list(Base1.index))
+Base2=Base1.set_index('Country Code').sort_index(level=0)
+print("Los indices de la base de de datos Base2: ")
+print(list(Base2.index))
+#Graficar la informacion del año 2020 para todos los paises. 
+Serie3=Base1['2020']
+Serie3.index=Base1.set_index('Country Code').index
+print("Serie de datos de 2020: ")
+print(Serie3)
+print("Acceso a la electricidad en Honduras en el anio 2020Ñ ",Serie3['HND'])
+Serie4=Serie3.sort_values()
+fig,ax=plt.subplots(1)
+Serie4.plot(ax=ax,kind='line',style='.-',markevery=5)
+ax.set_title('Acceso a la electricidad en el mundo, año 2020')
+plt.show()
+
+
