@@ -24,6 +24,24 @@ def ImprimirSubgrafo(G,G1,colors,colors1):
     nx.draw_networkx_edges(G,pos=pos,ax=ax,edgelist=G1.edges(),edge_color="red")
     #ax.set_title("Conecciones del metro")
     plt.show()
+def ImprimirSubgrafos(G,N):
+    # Obtener el camino más corto desde el nodo N a todos los demás nodos en el grafo G
+    caminos_cortos = nx.single_source_shortest_path(G, N)
+    # Imprimir los caminos más cortos
+    LG=[]
+    for nodo, camino in caminos_cortos.items():
+        l=[(camino[k],camino[k+1]) for k in range(len(camino)-1)]
+        g1=nx.DiGraph()
+        g1.add_edges_from(l)
+        LG.append(g1)
+    fig, ax=plt.subplots(1,1,figsize=(14,10))
+    pos=nx.drawing.nx_agraph.graphviz_layout(G,prog='neato')
+    for grafo in LG:
+        nx.draw_networkx_edges(G,pos=pos,ax=ax,edgelist=grafo.edges(),edge_color="red",width=5)
+        nx.draw(grafo,pos,ax=ax,node_size=200)
+    nx.draw(G,pos,ax=ax,node_size=200,node_color=colors)
+    nx.draw_networkx_labels(G,pos=pos,ax=ax,font_size=6)
+    plt.show()
 #Cargar la informacion del archivos json
 with open("tokyo-metro.json") as f:
     data=json.load(f)
@@ -79,5 +97,10 @@ colors1=[data[n[0].upper()]['color'] for n in g1.nodes()]
 #ImprimirGrafo(g1,colors1)
 #ImprimirSubgrafo(g,g1,colors,colors1)
 #Calculando todos los caminos simples desde un nodo
-g1=nx.single_source_shortest_path(g,'C1')
-print(g1)
+#g1=nx.single_source_shortest_path(g,'C1')
+#print(g1)
+#Ejercicio: Crear la funcion:
+# def ImprimirSubgrafos(G,N):
+#Esta funcion debe imprimir los caminos mas cortos desde el nodo N hasta el resto de 
+#nodos del grafo. 
+ImprimirSubgrafos(g,'C1')
